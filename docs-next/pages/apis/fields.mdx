@@ -410,8 +410,17 @@ export default config({
 ### relationship
 
 A `relationship` field represents a relationship between two lists.
+See the guides on [understanding relationships](../guides/understanding-relationships) and [configuring relationships](../guides/configuring-relationships) for details of Keystone's relationship model and how to configure your project's relationships.
 
-(coming soon)
+- `ref` (required): A string of the form `<listKey>` or `<listKey>.<fieldPath>`.
+- `many` (default: `false`): Configures the cardinality of the relationship.
+- `defaultValue` (default: `undefined`): Can be either a relationship input value or an async function which takes an argument `({ context, originalItem })` and returns a relationship input value.
+  This value will be used for the field when creating items if no explicit value is set.
+  `context` is a [`KeystoneContext`](./context) object.
+  `originalItem` is an object containing the data passed in to the `create` mutation.
+- `isUnique` (default: `false`): If `true` then all values of this field must be unique.
+- `ui` (default: `{ displayMode: 'input' }`): Configures the display mode of the field in the Admin UI.
+  Can be one of `['input', 'textarea']`.
 
 ```typescript
 import { config, createSchema, list } from '@keystone-next/keystone/schema';
@@ -424,9 +433,22 @@ export default config({
         fieldName: relationship({
           ref: '...',
           many: false,
-          ui: { /* ... */ },
           defaultValue: '...',
           isUnique: '...',
+          ui: {
+            hideCreate: false,
+            // Display mode: 'select'
+            displayMode: 'select';
+            labelField: string;
+            // Display mode: 'cards'
+            displayMode: 'cards';
+            cardFields: string[];
+            linkToItem: boolean;
+            removeMode: 'disconnect' | 'none';
+            inlineCreate: { fields: string[] };
+            inlineEdit: { fields: string[] };
+            inlineConnect: boolean;
+           },
         }),
         /* ... */
       },
@@ -513,6 +535,7 @@ export default config({
   /* ... */
 });
 ```
+
 ## File types
 
 File types allow you to upload different types of files to your Keystone system.
