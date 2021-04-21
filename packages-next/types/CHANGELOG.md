@@ -1,5 +1,11 @@
 # @keystone-next/types
 
+## 17.0.1
+
+### Patch Changes
+
+- [#5509](https://github.com/keystonejs/keystone/pull/5509) [`7e81b52b0`](https://github.com/keystonejs/keystone/commit/7e81b52b0f2240f0c590eb8f6733360cab9fe93a) Thanks [@mitchellhamilton](https://github.com/mitchellhamilton)! - Fixed incorrect types which said that field level delete access control exists when it does not
+
 ## 17.0.0
 
 ### Major Changes
